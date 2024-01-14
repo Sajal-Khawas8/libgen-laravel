@@ -12,7 +12,7 @@
 <body>
     <x-client.header />
 
-    <main class="min-h-[calc(100vh-4rem-3.5rem)]">
+    <main class="min-h-[calc(100vh-4rem-3.5rem)] space-y-8">
         @yield('main')
     </main>
 

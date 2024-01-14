@@ -13,6 +13,12 @@ class BookController extends Controller
     {
         $books = Book::with("category")->lazy()->groupBy(fn($book) => $book->category->name);
         // return $books;
-        return view("client.index", ["books" => $books]);
+        return view("pages.client.index", ["books" => $books]);
+    }
+
+    public function show(Book $book)
+    {
+        $book = $book->load(["category", "quantity"]);
+        return view("pages.client.book-details", ["book" => $book]);
     }
 }

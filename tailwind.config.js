@@ -7,8 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundImage:{
-        "home": "url("+ "../../public/banner.jpeg" + ")"
+      backgroundImage: {
+        "home": "url(" + "../../public/banner.jpeg" + ")"
+      },
+      container: {
+        screens: {
+          '2xl': '1400px',
+        },
+        center: true,
       }
     },
   },

@@ -37,7 +37,7 @@
 </section>
 <div id="search">
     @foreach ($books as $categoryName => $books)
-    <Section class="py-8">
+    <Section>
         <h2 class="font-medium text-2xl pl-16">{{ $categoryName }}</h2>
         <x-client.book-list :$books/>
     </Section>
