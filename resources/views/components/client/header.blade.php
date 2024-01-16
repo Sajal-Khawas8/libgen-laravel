@@ -11,7 +11,7 @@
             <li class="hover:text-indigo-500"><a href="/mybooks">My Books</a></li>
         </ul>
         <ul class="flex items-center gap-9 pr-20">
-            <?php if (isset($_SESSION['user'])): ?>
+            @auth
             <li class="text-white text-lg font-medium px-2 py-1 rounded-md hover:text-indigo-600">
                 <a href="/cart">
                     <svg fill="currentColor" class="w-7 h-7" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -38,16 +38,16 @@
                     </svg>
                 </a>
             </li>
-            <?php else: ?>
+            @else
             <li
                 class="bg-indigo-600 text-white text-lg font-medium px-2 py-1 rounded-md hover:bg-white hover:text-indigo-600">
-                <a href="/newUser">Sign Up</a>
+                <a href="/register">Sign Up</a>
             </li>
             <li
                 class="bg-indigo-600 text-white text-lg font-medium px-2 py-1 rounded-md hover:bg-white hover:text-indigo-600">
                 <a href="/login">Login</a>
             </li>
-            <?php endif; ?>
+            @endauth
         </ul>
     </nav>
 </header>

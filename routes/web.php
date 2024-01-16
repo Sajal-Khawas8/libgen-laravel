@@ -3,6 +3,7 @@
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\client\UserController as ClientUserController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ClientBookController::class, 'index']);
 Route::get('/bookDetails/{book:uuid}', [ClientBookController::class, 'show'])->whereUuid('uuid');
 
+Route::controller(ClientUserController::class)->group(function () {
+    Route::middleware("guest")->group(function () {
+        Route::get("/register", "create");
+        Route::post("/register", "store");
+    });
 
-Route::get("/newUser", [ClientUserController::class, "create"]);
-Route::post("/newUser", [ClientUserController::class, "store"]);
-Route::view("/login", "pages.client.login");
+});
+
+
+Route::controller(LoginController::class)->group(function (){
+    // TODO: Change get to post later
+    Route::get("/logout", "destroy")->middleware("auth");
+
+    Route::middleware("guest")->group(function (){
+        Route::get("/login", "create");
+        Route::post("/login", "store");
+    });
+});

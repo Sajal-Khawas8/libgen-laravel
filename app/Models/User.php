@@ -13,6 +13,11 @@ class User extends Authenticatable
 
     protected $fillable = ["name", "email", "password", "address", "image"];
 
+    public function role()
+    {
+        return $this->hasOne(Role::class, "id", "role");
+    }
+
     public function setNameAttribute(string $name)
     {
         $this->attributes["name"] = ucwords($name);
