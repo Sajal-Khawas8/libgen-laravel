@@ -6,15 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class error extends Component
+class TextArea extends Component
 {
-    public $name;
+    public $name, $placeholder;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name)
+    public function __construct(string $name, string $placeholder= "")
     {
         $this->name = $name;
+        $this->placeholder = $placeholder;
     }
 
     /**
@@ -22,6 +23,6 @@ class error extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.error');
+        return view('components.shared.form.text-area');
     }
 }

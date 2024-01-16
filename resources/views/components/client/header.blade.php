@@ -41,7 +41,7 @@
             <?php else: ?>
             <li
                 class="bg-indigo-600 text-white text-lg font-medium px-2 py-1 rounded-md hover:bg-white hover:text-indigo-600">
-                <a href="/signUp">Sign Up</a>
+                <a href="/newUser">Sign Up</a>
             </li>
             <li
                 class="bg-indigo-600 text-white text-lg font-medium px-2 py-1 rounded-md hover:bg-white hover:text-indigo-600">

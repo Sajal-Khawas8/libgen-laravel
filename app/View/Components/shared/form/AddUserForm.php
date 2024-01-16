@@ -6,15 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class error extends Component
+class AddUserForm extends Component
 {
-    public $name;
+    public $title, $action;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name)
+    public function __construct(string $title, string $action)
     {
-        $this->name = $name;
+        $this->title = $title;
+        $this->action = $action;
     }
 
     /**
@@ -22,6 +23,6 @@ class error extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.error');
+        return view('components.shared.form.add-user-form');
     }
 }

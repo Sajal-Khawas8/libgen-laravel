@@ -18,6 +18,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        session(["url.intended" => url()->current()]);
         $book = $book->load(["category", "quantity"]);
         return view("pages.client.book-details", ["book" => $book]);
     }

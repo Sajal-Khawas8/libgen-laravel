@@ -35,25 +35,25 @@
                 <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-2">
                         <x-shared.form.input name="cardNumber" placeholder="Card Number ex.1234123412341234" minLength="16" maxLength="16" />
-                        <x-shared.form.error />
+                        <x-shared.form.error name="cardNumber" />
                     </div>
                     <div class="flex-1">
                         <x-shared.form.input name="returnDate" placeholder="Rent Period" />
-                        <x-shared.form.error />
+                        <x-shared.form.error name="returnDate" />
                     </div>
                 </div>
                 <div>
                     <x-shared.form.input name="cardName" placeholder="Name on Card" />
-                    <x-shared.form.error />
+                    <x-shared.form.error name="cardName" />
                 </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div>
                         <x-shared.form.input name="expiryDate" placeholder="Expiration Date (MM/YY)"/>
-                        <x-shared.form.error />
+                        <x-shared.form.error name="expiryDate" />
                     </div>
                     <div>
                         <x-shared.form.input type="password" name="cvv" placeholder="CVV" minLength="3" maxLength="3"/>
-                        <x-shared.form.error />
+                        <x-shared.form.error name="cvv" />
                     </div>
                 </div>
                 <x-shared.form.submit-button> Get this Book </x-shared.form.submit-button>

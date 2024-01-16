@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
+use App\Http\Controllers\client\UserController as ClientUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientBookController::class, 'index']);
 Route::get('/bookDetails/{book:uuid}', [ClientBookController::class, 'show'])->whereUuid('uuid');
+
+
+Route::get("/newUser", [ClientUserController::class, "create"]);
+Route::post("/newUser", [ClientUserController::class, "store"]);
+Route::view("/login", "pages.client.login");

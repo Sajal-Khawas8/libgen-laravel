@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class error extends Component
+class FileInput extends Component
 {
     public $name;
     /**
@@ -14,7 +14,7 @@ class error extends Component
      */
     public function __construct(string $name)
     {
-        $this->name = $name;
+        $this->name=$name;
     }
 
     /**
@@ -22,6 +22,6 @@ class error extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.error');
+        return view('components.shared.form.file-input');
     }
 }
