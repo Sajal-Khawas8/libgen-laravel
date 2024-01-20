@@ -8,14 +8,13 @@ use Illuminate\View\Component;
 
 class TextArea extends Component
 {
-    public $name, $placeholder;
+    public $name;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name, string $placeholder= "")
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->placeholder = $placeholder;
     }
 
     /**

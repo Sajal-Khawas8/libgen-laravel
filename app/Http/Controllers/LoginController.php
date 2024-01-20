@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -14,24 +15,27 @@ class LoginController extends Controller
 
     public function store(Request $req)
     {
-        $credentials=$req->validate([
-            "email"=> ["bail", "required", "email", "exists:users,email"],
-            "password"=>["required"]
+        $credentials = $req->validate([
+            "email" => ["bail", "required", "email", "exists:users,email"],
+            "password" => ["required"]
         ]);
+        $credentials["active"] = 1;
 
-        if (!auth()->attempt($credentials)) {
+        if (!Auth::attempt($credentials, true)) {
             throw ValidationException::withMessages([
-                "email"=> "Your Email Address and Password do not match",
-                "password"=> "Your Email Address and Password do not match"
+                "email" => "Your Email Address and Password couldn't be verified",
+                "password" => "Your Email Address and Password couldn't be verified"
             ]);
         }
-
+        $req->session()->regenerate();
         return redirect()->intended();
     }
 
-    public function destroy()
+    public function destroy(Request $req)
     {
-        auth()->logout();
-        return redirect("/");
+        Auth::logout();
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+        return redirect('/');
     }
 }

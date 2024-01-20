@@ -2,16 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use HasFactory;
+    use HasUuids;
+    use SoftDeletes;
 
+    protected $primaryKey = "uuid";
     protected $fillable = ["name", "email", "password", "address", "image"];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($user) {
+            $user->active=false;
+            $user->save();
+        });
+    }
 
     public function role()
     {
@@ -33,9 +48,5 @@ class User extends Authenticatable
     public function setPasswordAttribute(string $password)
     {
         $this->attributes["password"] = bcrypt($password);
-    }
-    public function setImageAttribute(string $path)
-    {
-        $this->attributes["image"] = Storage::disk("uploads")->url("users/" . $path);
     }
 }

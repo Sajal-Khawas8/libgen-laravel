@@ -1,20 +1,20 @@
 <?php
 
-namespace App\View\Components\shared\form;
+namespace App\View\Components\shared;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class input extends Component
+class button extends Component
 {
-    public $name;
+    public $type;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name)
+    public function __construct($type="normal")
     {
-        $this->name = $name;
+        $this->type = $type;
     }
 
     /**
@@ -22,6 +22,6 @@ class input extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.input');
+        return view('components.shared.button');
     }
 }

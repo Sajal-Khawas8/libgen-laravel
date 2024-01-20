@@ -26,15 +26,21 @@ Route::controller(ClientUserController::class)->group(function () {
         Route::post("/register", "store");
     });
 
-});
-
-
-Route::controller(LoginController::class)->group(function (){
-    // TODO: Change get to post later
-    Route::get("/logout", "destroy")->middleware("auth");
-
-    Route::middleware("guest")->group(function (){
-        Route::get("/login", "create");
-        Route::post("/login", "store");
+    Route::middleware("auth")->group(function () {
+        Route::get("/settings", "show");
+        Route::get("/update", "edit");
+        Route::put("/update", "update");
+        Route::delete("/delete", "destroy");
     });
 });
+
+Route::controller(LoginController::class)->group(function (){
+    Route::post("/logout", "destroy")->middleware("auth");
+
+    Route::middleware("guest")->group(function (){
+        Route::get("/login", "create")->name("login");
+        Route::post("/login", "store")->name("login");
+    });
+});
+
+Route::get("/a", [ClientUserController::class, "file"]);

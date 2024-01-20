@@ -6,15 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class input extends Component
+class UpdateUserForm extends Component
 {
-    public $name;
+    public $title, $action, $user;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name)
+    public function __construct(string $title, string $action)
     {
-        $this->name = $name;
+        $this->title = $title;
+        $this->action = $action;
+        $this->user = auth()->user();
     }
 
     /**
@@ -22,6 +24,6 @@ class input extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.input');
+        return view('components.shared.form.update-user-form');
     }
 }
