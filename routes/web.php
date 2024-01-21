@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ClientBookController::class, 'index']);
-Route::get('/bookDetails/{book:uuid}', [ClientBookController::class, 'show'])->whereUuid('uuid');
+Route::controller(ClientBookController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/bookDetails/{book:uuid}', 'show')->whereUuid('uuid');
+});
 
 Route::controller(ClientUserController::class)->group(function () {
     Route::middleware("guest")->group(function () {
@@ -34,13 +36,13 @@ Route::controller(ClientUserController::class)->group(function () {
     });
 });
 
-Route::controller(LoginController::class)->group(function (){
-    Route::post("/logout", "destroy")->middleware("auth");
-
-    Route::middleware("guest")->group(function (){
+Route::controller(LoginController::class)->group(function () {
+    Route::middleware("guest")->group(function () {
         Route::get("/login", "create")->name("login");
-        Route::post("/login", "store")->name("login");
+        Route::post("/login", "store");
     });
+
+    Route::post("/logout", "destroy")->middleware("auth");
 });
 
-Route::get("/a", [ClientUserController::class, "file"]);
+Route::view("/admin", "pages.admin.index");

@@ -1,4 +1,4 @@
-@extends("layouts.masterLayout")
+@extends("layouts.master-layout")
 
 @section("main")
 <section class="py-8 space-y-10">

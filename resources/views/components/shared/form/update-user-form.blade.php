@@ -18,14 +18,14 @@
                 <x-shared.form.file-input name="profilePicture" />
                 <x-shared.button class="!w-fit px-0 bg-transparent hover:bg-transparent" title="View Uploaded Image"
                     onclick="document.getElementById('imageModal').classList.add('!flex')">
-                    <x-bi-eye-fill class="w-7 h-7 text-violet-700" />
+                    <x-icons.eye class="w-7 h-7 text-violet-700" />
                 </x-shared.button>
                 <section id="imageModal" class="hidden absolute inset-0 bg-gray-300/70 items-center justify-center">
                     <div class="relative w-96 bg-white py-4 space-y-2">
                         <h3 class="text-xl font-semibold text-center">Uploaded Image</h3>
                         <x-shared.button class="absolute top-0.5 right-2 !w-fit bg-transparent hover:bg-transparent"
                             onclick="document.getElementById('imageModal').classList.remove('!flex')">
-                            <x-fontisto-close class="w-6 h-6 text-black" />
+                            <x-icons.close-circle class="w-6 h-6 text-black" />
                         </x-shared.button>
                         @empty($user->image)
                         <div class="flex gap-6 items-center px-4 py-3">

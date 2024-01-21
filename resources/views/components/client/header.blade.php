@@ -14,12 +14,12 @@
             @auth
             <li class="text-white text-lg font-medium px-2 py-1 rounded-md hover:text-indigo-600">
                 <a href="/cart" title="Cart">
-                    <x-icomoon-cart class="w-7 h-7" />
+                    <x-icons.cart class="w-7 h-7" />
                 </a>
             </li>
             <li class="text-white text-lg font-medium px-2 py-1 rounded-md hover:text-indigo-600">
                 <a href="/settings" title="Settings">
-                    <x-ri-settings-3-fill class="w-8 h-8" />
+                    <x-icons.settings class="w-7 h-7" />
                 </a>
             </li>
             @else

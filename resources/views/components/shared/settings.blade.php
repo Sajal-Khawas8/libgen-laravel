@@ -1,7 +1,7 @@
 <article class="mx-auto bg-slate-200 rounded-md px-4 py-6 w-4/5 max-w-md space-y-4 relative">
     @empty($user->image)
     <div class="w-60 h-60 rounded-md mx-auto bg-gray-600 flex items-center justify-center">
-        <x-elusive-user class="w-56 h-56 text-white" />
+        <x-icons.user class="w-56 h-56 text-white" />
     </div>
     @else
     <div class="w-60 h-60 rounded-md mx-auto border border-gray-400">
@@ -40,7 +40,7 @@
             <p class="font-semibold text-3xl text-white">Are you sure?</p>
             <x-shared.button class="absolute top-4 right-4 !w-fit bg-transparent hover:bg-transparent"
                 onclick="document.getElementById('deleteModal').style.display='none'">
-                <x-fontisto-close class="w-7 h-7" />
+                <x-icons.close class="w-7 h-7" />
             </x-shared.button>
         </div>
         <div class="flex gap-20 items-center">
