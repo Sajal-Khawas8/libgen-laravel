@@ -12,6 +12,7 @@ class Book extends Model
     use HasFactory;
 
     protected $primary="uuid";
+    protected $with=["category"];
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminsOnly
+class ClientOnly
 {
     /**
      * Handle an incoming request.
@@ -16,8 +15,10 @@ class AdminsOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guest() || auth()->user()->role === 1) {
-            abort(404);
+        if (auth()->check() && auth()->user()->role !== 1) {
+            return str_starts_with($request->getRequestUri(), "/admin") ?
+                redirect()->back() :
+                redirect('/admin');
         }
         return $next($request);
     }

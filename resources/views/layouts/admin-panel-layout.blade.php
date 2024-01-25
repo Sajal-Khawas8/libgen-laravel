@@ -68,7 +68,8 @@
             </ul>
         </nav>
         <footer class="mt-6 font-semibold leading-9 rounded-md bg-indigo-600 text-white hover:bg-indigo-800">
-            <form action="/formHandler" method="post">
+            <form action="/logout" method="post">
+                @csrf
                 <button name="logout" id="logout" class="flex items-center w-full">
                     <x-icons.logout class="w-7 h-7 mx-4" />
                     <span>Log Out</span>
