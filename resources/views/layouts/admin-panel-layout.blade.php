@@ -10,6 +10,12 @@
 </head>
 
 <body class="flex gap-0 h-screen">
+    @if (session()->has('success'))
+    <x-shared.message type='success' />
+    @elseif (session()->has('error'))
+    <x-shared.message type='error' />
+    @endif
+
     <aside class="w-64 h-full px-3 py-2.5 text-lg space-y-8 hidden lg:block">
         <header class="mx-auto my-3 w-fit">
             <a href="/admin" class="flex items-center">

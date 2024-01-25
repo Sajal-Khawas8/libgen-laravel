@@ -50,4 +50,5 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::middleware("admin")->prefix("/admin")->group(function (){
     Route::get("/", DashboardController::class);
+    Route::get("/books", [AdminBookController::class, "index"]);
 });

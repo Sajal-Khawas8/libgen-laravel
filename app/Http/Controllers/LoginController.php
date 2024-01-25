@@ -28,7 +28,7 @@ class LoginController extends Controller
             ]);
         }
         $req->session()->regenerate();
-        return redirect()->intended();
+        return redirect()->intended(auth()->user()->role === 1 ? '/' : '/admin')->with("success","Welcome back, " . auth()->user()->name ."!");
     }
 
     public function destroy(Request $req)
@@ -36,6 +36,6 @@ class LoginController extends Controller
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/')->with("success", "Logged Out Successfully!");
     }
 }

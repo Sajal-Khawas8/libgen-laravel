@@ -12,6 +12,12 @@
 <body>
     <x-client.header />
 
+    @if (session()->has('success'))
+    <x-shared.message type='success' />
+    @elseif (session()->has('error'))
+    <x-shared.message type='error' />
+    @endif
+
     <main class="min-h-[calc(100vh-4rem-3.5rem)] space-y-8">
         @yield('main')
     </main>

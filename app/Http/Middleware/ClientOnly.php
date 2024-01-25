@@ -16,9 +16,10 @@ class ClientOnly
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check() && auth()->user()->role !== 1) {
-            return str_starts_with($request->getRequestUri(), "/admin") ?
-                redirect()->back() :
-                redirect('/admin');
+            // return str_starts_with(parse_url(url()->previous())["path"], "/admin") ?
+            //     redirect()->back() :
+            //     redirect('/admin');
+            return redirect('/admin')->with('error','You are not allowed to access this page');
         }
         return $next($request);
     }

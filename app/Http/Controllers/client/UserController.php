@@ -43,7 +43,7 @@ class UserController extends Controller
         }
         $user = User::create($userData);
         Auth::login($user, true);
-        return redirect()->intended();
+        return redirect()->intended()->with("success","Your account has been created Successfully!");
     }
 
     public function edit()
@@ -74,7 +74,7 @@ class UserController extends Controller
         }
 
         $user->update($userData);
-        return redirect("/settings");
+        return redirect("/settings")->with("success","Your data has been updated Successfully!");
     }
 
     public function destroy(Request $req)
@@ -90,6 +90,6 @@ class UserController extends Controller
         User::destroy($userUuid);
 
         // Redirect the user
-        return redirect("/");
+        return redirect("/")->with("success","Your account has been deleted Successfully! Sorry to see you go!!");
     }
 }

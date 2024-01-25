@@ -28,7 +28,7 @@
             </div>
             <div>
                 <x-shared.form.input type="password" name="password_confirmation" placeholder="Confirm Password" />
-                <x-shared.form.error name="password_confirmation"/>
+                <x-shared.form.error name="password"/>
             </div>
         </div>
         <x-shared.form.submit-button> Register </x-shared.form.submit-button>
