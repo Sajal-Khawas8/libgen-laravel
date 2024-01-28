@@ -24,7 +24,7 @@
     <div class="space-y-6">
         <div class="flex gap-10">
             <div class="flex-1">
-                <x-shared.anchor-button href="/update"> Update Info </x-shared.anchor-button>
+                <x-shared.anchor-button href="{{ $update }}"> Update Info </x-shared.anchor-button>
             </div>
             <form action="/logout" method="post" class="flex-1">
                 @csrf
@@ -44,7 +44,7 @@
             </x-shared.button>
         </div>
         <div class="flex gap-20 items-center">
-            <form action="/delete" method="post" class="flex-1 font-medium text-lg rounded-md">
+            <form action="{{ $delete }}" method="post" class="flex-1 font-medium text-lg rounded-md">
                 @csrf
                 @method("DELETE")
                 <x-shared.form.submit-button class="bg-white !text-red-600 hover:bg-red-600 hover:!text-white"> Delete

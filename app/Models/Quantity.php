@@ -10,4 +10,9 @@ class Quantity extends Model
     use HasFactory;
 
     protected $table="quantity";
+
+    public function book()
+    {
+        return $this->hasOne(Book::class, 'uuid', 'book_id');
+    }
 }

@@ -22,4 +22,8 @@ class Book extends Model
     {
         return $this->belongsTo(Quantity::class, "uuid", "book_id");
     }
+
+    public function orders(){
+        return $this->hasMany(Order::class,"book_id", "uuid");
+    }
 }

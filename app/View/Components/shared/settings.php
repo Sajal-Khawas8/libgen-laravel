@@ -8,13 +8,15 @@ use Illuminate\View\Component;
 
 class settings extends Component
 {
-    public $user;
+    public $user, $update, $delete;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($update, $delete)
     {
-        $this->user=auth()->user();
+        $this->user = auth()->user();
+        $this->update = $update;
+        $this->delete = $delete;
     }
 
     /**

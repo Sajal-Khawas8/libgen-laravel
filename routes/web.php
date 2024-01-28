@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\client\UserController as ClientUserController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,13 @@ Route::controller(LoginController::class)->group(function () {
     Route::post("/logout", "destroy")->middleware("auth");
 });
 
-Route::middleware("admin")->prefix("/admin")->group(function (){
+Route::middleware("admin")->prefix("/admin")->group(function () {
     Route::get("/", DashboardController::class);
-    Route::get("/books", [AdminBookController::class, "index"]);
+    Route::controller(AdminBookController::class)->group(function () {
+        Route::get("/books", "index");
+        Route::get("/rentedBooks", "rentedBooks");
+    });
+    Route::controller(AdminUserController::class)->group(function (){
+        Route::get("/settings", "show");
+    });
 });

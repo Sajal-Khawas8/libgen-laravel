@@ -1,13 +1,13 @@
 <header class="bg-gray-700 px-4 py-2 h-16 sticky top-0 z-50">
     <nav class="flex justify-between items-center gap-4">
         <div class="pl-20">
-            <a href="/libgen" class="flex items-center">
+            <a href="/" class="flex items-center">
                 <img src="{{ asset('logo.png') }}" alt="LibGen Logo" class="h-12 w-12 object-cover">
                 <span class="text-red-600 font-medium text-2xl px-3">LibGen</span>
             </a>
         </div>
         <ul class="flex items-center gap-16 text-xl text-white">
-            <li class="hover:text-indigo-500"><a href="/libgen">Home</a></li>
+            <li class="hover:text-indigo-500"><a href="/">Home</a></li>
             <li class="hover:text-indigo-500"><a href="/mybooks">My Books</a></li>
         </ul>
         <ul class="flex items-center gap-9 pr-20">
