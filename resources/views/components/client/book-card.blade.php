@@ -6,5 +6,5 @@
         <h3 class="font-semibold text-xl text-blue-700 truncate">{{ $book->title }}</h3>
         <h4 class="font-medium truncate">{{ $book->author }}</h4>
     </figcaption>
-    <a href="/bookDetails/{{ $book->uuid }}" class="absolute inset-0"></a>
+    <a href="{{ $href }}" class="absolute inset-0"></a>
 </figure>

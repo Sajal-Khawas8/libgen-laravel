@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
+use App\Http\Controllers\client\BookHistory;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\LoginController;
@@ -37,6 +38,12 @@ Route::middleware("client")->group(function () {
             Route::put("/update", "update");
             Route::delete("/delete", "destroy");
         });
+    });
+
+    Route::controller(BookHistory::class)->middleware("auth")->group(function (){
+        Route::get("/mybooks", "index");
+        Route::get("/returnBook/{book:uuid}", "returnBook")->whereUuid("uuid");
+        Route::get("/rentHistory/{book:uuid}", "rentHistory")->whereUuid("uuid");
     });
 });
 

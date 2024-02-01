@@ -9,13 +9,14 @@ use Illuminate\View\Component;
 
 class BookCard extends Component
 {
-    public $book;
+    public $book, $href;
     /**
      * Create a new component instance.
      */
-    public function __construct(Book $book)
+    public function __construct(Book $book, string $href)
     {
         $this->book = $book;
+        $this->href = $href;
     }
 
     /**
