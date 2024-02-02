@@ -1,20 +1,20 @@
 <?php
 
-namespace App\View\Components\shared\form;
+namespace App\View\Components\admin;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SubmitButton extends Component
+class CategoryCard extends Component
 {
-    public $disabled;
+    public $category;
     /**
      * Create a new component instance.
      */
-    public function __construct($disabled = false)
+    public function __construct($category)
     {
-        $this->disabled = $disabled;
+        $this->category = $category;
     }
 
     /**
@@ -22,6 +22,6 @@ class SubmitButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.form.submit-button');
+        return view('components.admin.category-card');
     }
 }

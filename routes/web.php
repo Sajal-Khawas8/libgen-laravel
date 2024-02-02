@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\admin\ReadersController;
@@ -67,7 +69,9 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
     Route::get("/readers", [ReadersController::class, "index"]);
     // TODO: Block/Unblock User
 
+    Route::get("/categories", [CategoryController::class, "index"]);
     Route::get("/payment", [PaymentController::class, "index"]);
+    Route::get("/team", [AdminController::class, "index"]);
     Route::controller(AdminUserController::class)->group(function (){
         Route::get("/settings", "show");
     });
