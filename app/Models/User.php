@@ -33,6 +33,10 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, "id", "role");
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class,"user_id","uuid");
+    }
+    
     public function setNameAttribute(string $name)
     {
         $this->attributes["name"] = ucwords($name);

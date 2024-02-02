@@ -24,16 +24,7 @@ class BookHistory extends Controller
     {
         try {
             $rentData = Order::where("user_id", auth()->user()->uuid)
-                ->where("book_id", $book->uuid)->firstOrFail();
-            $rentData->duration = Carbon::parse($rentData->issue_date)
-                ->diffInDays($rentData->due_date);
-            $rentData->rent = $rentData->duration * $book->rent;
-            $rentData->overdueDays = Carbon::now()->isBefore($rentData->due_date)
-                ? 0
-                : Carbon::parse($rentData->due_date)->diffInDays();
-            $rentData->fine = Carbon::now()->isBefore($rentData->due_date)
-                ? 0
-                : Carbon::parse($rentData->due_date)->diffInDays() * $book->fine;
+                ->where("book_id", $book->uuid)->firstOrFail()->setAppends(['duration', 'rent', 'overdueDays', 'fine']);
             // return $rentData;
             // return $book;
             return view("pages.client.return-book", compact("book", "rentData"));
@@ -46,11 +37,7 @@ class BookHistory extends Controller
     {
         try {
             $rentData = RentHistory::where("user_id", auth()->user()->uuid)
-                ->where("book_id", $book->uuid)->firstOrFail();
-            $rentData->duration = Carbon::parse($rentData->issue_date)
-                ->diffInDays($rentData->return_date);
-            $rentData->overdueDays = Carbon::parse($rentData->due_date)->isBefore($rentData->return_date)
-                ? Carbon::parse($rentData->due_date)->diffInDays($rentData->return_date) : 0;
+                ->where("book_id", $book->uuid)->firstOrFail()->setAppends(['duration', 'overdueDays']);
             return view("pages.client.book-history", compact("book", "rentData"));
         } catch (ModelNotFoundException $ex) {
             abort(400, "No Record Found");

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\PaymentController;
+use App\Http\Controllers\admin\ReadersController;
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\client\BookHistory;
@@ -62,6 +64,10 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
         Route::get("/books", "index");
         Route::get("/rentedBooks", "rentedBooks");
     });
+    Route::get("/readers", [ReadersController::class, "index"]);
+    // TODO: Block/Unblock User
+
+    Route::get("/payment", [PaymentController::class, "index"]);
     Route::controller(AdminUserController::class)->group(function (){
         Route::get("/settings", "show");
     });

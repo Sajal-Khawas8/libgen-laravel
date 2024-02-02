@@ -33,14 +33,7 @@ class BookController extends Controller
             'quantity'
         ])->simplePaginate();
         $books->each(function ($book) {
-            $book->orders->each(function ($order) use ($book) {
-                $order->duration = Carbon::parse($order->issue_date)
-                    ->diffInDays($order->due_date);
-                $order->rent = $order->duration * $book->rent;
-                $order->fine = Carbon::now()->isBefore($order->due_date)
-                    ? 0
-                    : Carbon::parse($order->due_date)->diffInDays() * $book->fine;
-            });
+            $book->orders->each->setAppends(['duration', 'rent', 'overdueDays', 'fine']);
         });
 
         // return $books;
