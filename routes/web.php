@@ -71,8 +71,21 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
 
     Route::get("/categories", [CategoryController::class, "index"]);
     Route::get("/payment", [PaymentController::class, "index"]);
-    Route::get("/team", [AdminController::class, "index"]);
-    Route::controller(AdminUserController::class)->group(function (){
+
+    Route::controller(AdminController::class)->group(function (){
+        Route::get("/team", "index");
         Route::get("/settings", "show");
+        Route::get("/settings/update", "edit");
+        Route::put("/settings/update", "update");
+        Route::delete("/delete", "destroy");
+
+        Route::middleware("can:modify-admin-status")->group(function (){
+            Route::patch("/makeSuperAdmin", "makeSuperAdmin");
+            Route::patch("/removeSuperAdmin", "removeSuperAdmin");
+            Route::delete("/removeAdmin", "removeAdmin");
+        });
+
+        Route::get("/team/addAdmin", "create");
+        Route::post("/team/addAdmin", "store");
     });
 });

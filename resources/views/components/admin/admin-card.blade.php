@@ -24,8 +24,10 @@
     </div>
     @if ($admin != auth()->user())
     <div class="space-y-4">
-        <form action="/formHandler" method="post">
-            <input type="hidden" name="id" value="">
+        <form action="{{ $admin->role === 3 ? '/admin/removeSuperAdmin' : '/admin/makeSuperAdmin' }}" method="post">
+            @csrf
+            @method("PATCH")
+            <input type="hidden" name="id" value="{{ $admin->uuid }}">
             <x-shared.form.submit-button @class(['bg-orange-500 hover:bg-orange-600'=>$admin->role === 3, '!px-2 disabled:bg-indigo-300'])
                 :disabled="auth()->user()->role !== 3">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
@@ -50,8 +52,10 @@
                 </svg>
             </x-shared.form.submit-button>
         </form>
-        <form action="/formHandler" method="post">
-            <input type="hidden" name="id" value="">
+        <form action="/admin/removeAdmin" method="post">
+            @csrf
+            @method("DELETE")
+            <input type="hidden" name="id" value="{{ $admin->uuid }}">
             <x-shared.form.submit-button class="bg-red-500 hover:bg-red-600 rounded-md !px-2">
                 <x-icons.delete class="w-6 h-6" />
             </x-shared.form.submit-button>

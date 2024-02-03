@@ -8,7 +8,7 @@
             <x-shared.form.search name="search" placeholder="Search admins" />
         </form>
         <x-shared.form.error name="search" />
-        <x-shared.anchor-button href="/admin/admins/addAdmin" class="flex items-center gap-3 ml-auto max-w-fit py-1.5">
+        <x-shared.anchor-button href="/admin/team/addAdmin" class="flex items-center gap-3 ml-auto max-w-fit py-1.5">
             <x-icons.add class="w-7 h-7" />
             <span class="text-lg">Add New Admin</span>
         </x-shared.anchor-button>
