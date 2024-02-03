@@ -66,10 +66,19 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
         Route::get("/books", "index");
         Route::get("/rentedBooks", "rentedBooks");
     });
-    Route::get("/readers", [ReadersController::class, "index"]);
-    // TODO: Block/Unblock User
+    Route::controller(ReadersController::class)->group(function () {
+        Route::get("/readers", "index");
+        Route::delete("/readers/block", "destroy");
+    });
 
-    Route::get("/categories", [CategoryController::class, "index"]);
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get("/categories", "index");
+        Route::get("/categories/addCategory", "create");
+        Route::post("/categories/addCategory", "store");
+        Route::get("/categories/updateCategory/{category}", "edit");
+        Route::patch("/categories/updateCategory/{category}", "update");
+        Route::delete("/categories/delete", "destroy");
+    });
     Route::get("/payment", [PaymentController::class, "index"]);
 
     Route::controller(AdminController::class)->group(function (){

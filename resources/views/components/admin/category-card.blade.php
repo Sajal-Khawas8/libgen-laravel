@@ -7,14 +7,13 @@
         </dl>
     </div>
     <div class="space-y-4">
-        <form action="/formHandler" method="post">
-            <input type="hidden" name="id" value="">
-            <x-shared.form.submit-button>
-                <x-icons.edit class="w-6 h-6" />
-            </x-shared.form.submit-button>
-        </form>
-        <form action="/formHandler" method="post">
-            <input type="hidden" name="id" value="">
+        <x-shared.anchor-button href="/admin/categories/updateCategory/{{ $category->name }}">
+            <x-icons.edit class="w-6 h-6" />
+        </x-shared.anchor-button>
+        <form action="/admin/categories/delete" method="post">
+            @csrf
+            @method("DELETE")
+            <input type="hidden" name="id" value="{{ $category->name }}">
             <x-shared.form.submit-button class="bg-red-500 hover:bg-red-600 text-white rounded-md">
                 <x-icons.delete class="w-6 h-6" />
             </x-shared.form.submit-button>

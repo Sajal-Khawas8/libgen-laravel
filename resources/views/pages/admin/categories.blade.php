@@ -21,9 +21,9 @@
     <h2 class="font-bold text-5xl text-gray-500">There Are No Categories...</h2>
 </section>
 @else
-<ul class="flex-1 px-6 grid grid-cols-3 gap-8 overflow-y-auto">
+<ul class="px-6 grid grid-cols-3 gap-8 overflow-y-auto">
     @foreach ($categories as $category)
-    <li class="px-5 py-3 bg-white rounded-md h-fit relative">
+    <li class="px-5 py-3 bg-white rounded-md relative">
         <x-admin.category-card :$category />
     </li>
     @endforeach

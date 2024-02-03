@@ -1,8 +1,10 @@
 <article class="flex flex-col justify-between h-full space-y-3">
     <div class="flex items-center justify-between">
         <h2 class="font-semibold text-2xl">{{ $user->name }}</h2>
-        <form action="/formHandler" method="post">
-            <input type="hidden" name="id" value="">
+        <form action="/admin/readers/block" method="post">
+            @csrf
+            @method("DELETE")
+            <input type="hidden" name="id" value="{{ $user->uuid }}">
             <button name="blockUser">
                 <svg class="w-6 h-6 text-red-600" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
                     viewBox="0 0 24 24" fill="currentColor">

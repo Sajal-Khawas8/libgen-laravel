@@ -11,6 +11,16 @@ class Category extends Model
 
     protected $table="category";
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    public function setNameAttribute(string $name)
+    {
+        $this->attributes["name"] = ucwords($name);
+    }
+
     public function books()
     {
         return $this->hasMany(Book::class);
