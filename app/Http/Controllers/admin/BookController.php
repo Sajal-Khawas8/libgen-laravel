@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Quantity;
 use Carbon\Carbon;
@@ -14,8 +15,9 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::with('quantity')->simplePaginate(10);
-        return view('pages.admin.books', compact('books'));
+        $books = Book::with('quantity')->filter(request(['search', 'category']))->simplePaginate(3);
+        $categories=Category::lazy();
+        return view('pages.admin.books', compact('books', 'categories'));
     }
 
     public function rentedBooks()

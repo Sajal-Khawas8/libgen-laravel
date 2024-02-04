@@ -63,11 +63,11 @@ Route::controller(LoginController::class)->group(function () {
 Route::middleware("admin")->prefix("/admin")->group(function () {
     Route::get("/", DashboardController::class);
     Route::controller(AdminBookController::class)->group(function () {
-        Route::get("/books", "index");
+        Route::get("/books", "index")->name("admin.books.index");
         Route::get("/rentedBooks", "rentedBooks");
     });
     Route::controller(ReadersController::class)->group(function () {
-        Route::get("/readers", "index");
+        Route::get("/readers", "index")->name("readers.index");
         Route::delete("/readers/block", "destroy");
     });
 

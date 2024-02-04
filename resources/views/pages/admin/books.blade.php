@@ -5,15 +5,14 @@
 <header class="py-2.5 px-6">
     <h1 class="my-2.5 text-2xl font-medium text-center xl:text-left">Library Books</h1>
     <div class="flex items-center gap-2">
-        <form action="/formHandler" method="post" class="text-gray-800 divide-gray-500 relative w-[600px]">
-            @csrf
+        <form action="{{ route("admin.books.index") }}" method="GET" class="text-gray-800 divide-gray-500 relative w-[600px]">
             <div class="absolute left-0 inset-y-0 px-2 divide-x divide-gray-500 rounded-l-md">
                 <select name="category" id="category" class="px-2 py-2 outline-none border-r border-gray-500 text-lg"
                     aria-label="Select category">
-                    <option value=0>All Categories</option>
-                    <option value=1>category 1</option>
-                    <option value=1>category 2</option>
-                    <option value=1>category 3</option>
+                    <option value="">All Categories</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->name }}" @selected($category->name === request('category'))>{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <x-shared.form.search class="pl-44" name="search" placeholder="Search Books by Title or Author" />
@@ -71,7 +70,7 @@
         </li>
         @endforeach
     </ul>
-    <div class="py-4 px-6">{{ $books->links() }}</div>
+    <div class="py-4 px-6">{{ $books->appends(['category' => request('category'), 'search' => request('search')])->links() }}</div>
 </div>
 @endif
 @endsection

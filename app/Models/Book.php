@@ -13,6 +13,22 @@ class Book extends Model
 
     protected $primary="uuid";
     protected $with=["category"];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, fn($query, $search) =>
+            $query->where(fn($query) =>
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('author', 'like', '%' . $search . '%')
+            )
+        );
+
+        $query->when($filters['category'] ?? false, fn($query, $category) =>
+            $query->whereHas('category', fn ($query) =>
+                $query->where('name', $category)
+            )
+        );
+    }
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

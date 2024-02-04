@@ -1,4 +1,4 @@
-<input type="text" name="{{ $name }}" id="{{ $name }}" value="{{ old($name) }}"
+<input type="text" name="{{ $name }}" id="{{ $name }}" value="{{ old($name, request($name)) }}"
     {{ $attributes->merge(['class'=> 'px-4 py-2 outline-none w-full rounded-md text-lg']) }}>
 <button class="absolute inset-y-0 right-0 px-3 rounded-r-md bg-slate-200 hover:bg-indigo-600 hover:text-white"
     aria-label="Search">

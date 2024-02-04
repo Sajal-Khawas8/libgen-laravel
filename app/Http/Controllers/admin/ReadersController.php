@@ -11,11 +11,18 @@ class ReadersController extends Controller
 {
     public function index()
     {
-        $users = User::where("role", 1)->with(["orders"=> function ($query){
-            $query->with("book");
-        }])->simplePaginate(6);
-        $users->each(function ($user) {
-            $user->orders->each->setAppends(['duration', 'rent', 'overdueDays', 'fine']);
+        [$page, $time] = request('search') ? ['', 0] : [request('page') ?? 1, 1];
+        
+        $users = cache()->remember("readers" . $page, now()->addDays($time), function () {
+            $users = User::where("role", 1)->filter()->with([
+                "orders" => function ($query) {
+                    $query->with("book");
+                }
+            ])->simplePaginate(6);
+            $users->each(function ($user) {
+                $user->orders->each->setAppends(['duration', 'rent', 'overdueDays', 'fine']);
+            });
+            return $users;
         });
         // return $users;
         return view("pages.admin.readers", compact("users"));
@@ -23,14 +30,14 @@ class ReadersController extends Controller
 
     public function destroy(Request $req)
     {
-        $validator=Validator::make($req->all(), [
-            "id"=>["bail", "required", "uuid", "exists:users,uuid"]
+        $validator = Validator::make($req->all(), [
+            "id" => ["bail", "required", "uuid", "exists:users,uuid"]
         ]);
-        $user=User::find($req->id);
+        $user = User::find($req->id);
         if ($validator->fails() || $user->role !== 1) {
             return redirect()->back()->with("error", "Something went wrong! Please try again");
         }
         $user->delete();
-        return redirect("/admin/readers")->with("success","User has been blocked!");
+        return redirect("/admin/readers")->with("success", "User has been blocked!");
     }
 }

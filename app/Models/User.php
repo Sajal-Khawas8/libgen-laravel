@@ -28,6 +28,14 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeFilter($query)
+    {
+        if (request('search')) {
+            $query->where('name', 'like', '%' . request('search') . '%')
+            ->orWhere('email', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function roles()
     {
         return $this->hasOne(Role::class, "id", "role");
