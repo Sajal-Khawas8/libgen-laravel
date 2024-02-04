@@ -15,7 +15,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::with('quantity')->filter(request(['search', 'category']))->simplePaginate(3);
+        $books = Book::with('quantity')->filter(request(['search', 'category']))->simplePaginate(10);
         $categories=Category::lazy();
         return view('pages.admin.books', compact('books', 'categories'));
     }
