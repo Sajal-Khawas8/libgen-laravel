@@ -18,9 +18,9 @@
             <div>
                 <select name="category" id="category"
                     class="w-full px-4 py-2 border border-gray-600 rounded outline-indigo-600 placeholder:text-gray-500">
-                    <option value="0" class="text-gray-500">Select Category</option>
+                    <option class="text-gray-500">Select Category</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ (old('category') == $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" @selected(old('category') == $category->id)>{{ $category->name }}</option>
                     @endforeach
                 </select>
                 <x-shared.form.error name="category" />

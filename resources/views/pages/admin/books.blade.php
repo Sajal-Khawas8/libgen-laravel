@@ -36,12 +36,10 @@
         @foreach ($books as $book)
         <li class="px-5 py-3 bg-white rounded-md relative">
             <x-admin.book-panel :book="$book">
-                <form action="/formHandler" method="post">
-                    <input type="hidden" name="id" value="{{ $book->uuid }}">
-                    <x-shared.form.submit-button>Update Book Info</x-shared.form.submit-button>
-                </form>
-                <form action="/formHandler" method="post">
-                    <input type="hidden" name="id" value="">
+                <x-shared.anchor-button href="{{ route('admin.books.edit', $book->uuid) }}"> Update Book Info </x-shared.anchor-button>
+                <form action="{{ route('admin.books.destroy', $book->uuid) }}" method="post">
+                    @csrf
+                    @method("DELETE")
                     <x-shared.button type="danger"
                         onclick="document.getElementById('deleteModal-{{ $book->uuid }}').style.display='flex'">
                         Delete Book</x-shared.button>

@@ -19,7 +19,15 @@ class Book extends Model
         'fine' => 'decimal:2',
     ];
     protected $with=["category"];
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleted(function ($book) {
+            $book->active=false;
+            $book->save();
+        });
+    }
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, fn($query, $search) =>

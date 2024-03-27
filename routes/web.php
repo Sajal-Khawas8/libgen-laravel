@@ -66,6 +66,9 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
         Route::get("/books", "index")->name("admin.books.index");
         Route::get("/books/addBook", "create")->name("admin.books.create");
         Route::post("/books/addBook", "store")->name("admin.books.store");
+        Route::get("/books/updateBook/{book:uuid}", "edit")->name("admin.books.edit");
+        Route::put("/books/updateBook/{book:uuid}", "update")->name("admin.books.update");
+        Route::delete("/books/deleteBook/{book:uuid}", "destroy")->name("admin.books.destroy");
         Route::get("/rentedBooks", "rentedBooks");
     });
     Route::controller(ReadersController::class)->group(function () {
