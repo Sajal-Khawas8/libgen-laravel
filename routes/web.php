@@ -64,6 +64,8 @@ Route::middleware("admin")->prefix("/admin")->group(function () {
     Route::get("/", DashboardController::class);
     Route::controller(AdminBookController::class)->group(function () {
         Route::get("/books", "index")->name("admin.books.index");
+        Route::get("/books/addBook", "create")->name("admin.books.create");
+        Route::post("/books/addBook", "store")->name("admin.books.store");
         Route::get("/rentedBooks", "rentedBooks");
     });
     Route::controller(ReadersController::class)->group(function () {

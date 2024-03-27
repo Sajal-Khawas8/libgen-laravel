@@ -6,12 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $primary="uuid";
+    protected $fillable=['title', 'author', 'description', 'cover', 'category_id', 'rent', 'fine'];
+    protected $casts = [
+        'rent' => 'decimal:2',
+        'fine' => 'decimal:2',
+    ];
     protected $with=["category"];
 
     public function scopeFilter($query, array $filters)
@@ -36,7 +42,7 @@ class Book extends Model
 
     public function quantity(): BelongsTo
     {
-        return $this->belongsTo(Quantity::class, "uuid", "book_id");
+        return $this->belongsTo(Quantity::class, "title", "book");
     }
 
     public function orders(){

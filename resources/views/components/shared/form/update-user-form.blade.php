@@ -1,4 +1,4 @@
-<article class="py-6 space-y-8">
+<article class="py-6 space-y-8 overflow-y-auto">
     <h1 class="text-center text-4xl font-semibold"> {{ $title }} </h1>
     <form action="{{ $action }}" method="post" enctype="multipart/form-data" class="space-y-8 max-w-md mx-auto">
         @csrf
