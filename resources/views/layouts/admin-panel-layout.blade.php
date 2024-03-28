@@ -16,7 +16,7 @@
     <x-shared.message type='error' />
     @endif
 
-    <aside class="w-64 h-full px-3 py-2.5 text-lg space-y-8 hidden lg:block">
+    <aside class="w-64 h-full px-3 py-2.5 text-lg space-y-7 hidden lg:block">
         <header class="mx-auto my-3 w-fit">
             <a href="/admin" class="flex items-center">
                 <img src="{{ asset("logo.png") }}" alt="LibGen Logo" class="h-12 w-12 object-cover">
@@ -73,7 +73,7 @@
                 </li>
             </ul>
         </nav>
-        <footer class="mt-6 font-semibold leading-9 rounded-md bg-indigo-600 text-white hover:bg-indigo-800">
+        <footer class="font-semibold leading-9 rounded-md bg-indigo-600 text-white hover:bg-indigo-800">
             <form action="/logout" method="post">
                 @csrf
                 <button name="logout" id="logout" class="flex items-center w-full">

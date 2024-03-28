@@ -7,10 +7,20 @@
         <article class="space-y-4">
             <div class="flex justify-between">
                 <h2 class="font-semibold text-3xl">Summary</h2>
-                <form action="/formHandler" method="post">
-                    <input type="hidden" name="id" value="">
-                    <x-shared.form.submit-button>Add to Cart</x-shared.form.submit-button>
-                </form>
+                @if ($showAddToCart)
+                    <form action="{{ route("cart.store") }}" method="post">
+                        @csrf
+                        <input type="hidden" name="book" value="{{ $book->uuid }}">
+                        <x-shared.form.submit-button>Add to Cart</x-shared.form.submit-button>
+                    </form>
+                @else
+                    <form action="{{ route("cart.destroy") }}" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <input type="hidden" name="book" value="{{ $book->uuid }}">
+                        <x-shared.form.submit-button class="bg-red-500 hover:bg-red-600">Remove from Cart</x-shared.form.submit-button>
+                    </form>
+                @endif
             </div>
             <dl class="space-y-4 mx-8">
                 <div class="grid grid-cols-3 text-lg">

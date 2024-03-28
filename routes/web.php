@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\ReadersController;
 use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\client\BookHistory;
+use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\LoginController;
@@ -35,19 +36,27 @@ Route::middleware("client")->group(function () {
             Route::get("/register", "create");
             Route::post("/register", "store");
         });
+    });
 
-        Route::middleware("auth")->group(function () {
+    Route::middleware("auth")->group(function (){
+        Route::controller(ClientUserController::class)->group(function () {
             Route::get("/settings", "show");
             Route::get("/update", "edit");
             Route::put("/update", "update");
             Route::delete("/delete", "destroy");
         });
-    });
 
-    Route::controller(BookHistory::class)->middleware("auth")->group(function (){
-        Route::get("/mybooks", "index");
-        Route::get("/returnBook/{book:uuid}", "returnBook")->whereUuid("uuid");
-        Route::get("/rentHistory/{book:uuid}", "rentHistory")->whereUuid("uuid");
+        Route::controller(BookHistory::class)->group(function (){
+            Route::get("/mybooks", "index");
+            Route::get("/returnBook/{book:uuid}", "returnBook")->whereUuid("uuid");
+            Route::get("/rentHistory/{book:uuid}", "rentHistory")->whereUuid("uuid");
+        });
+
+        Route::controller(CartController::class)->group(function (){
+            Route::get("/cart", "index")->name("cart.index");
+            Route::post("/cart", "store")->name("cart.store");
+            Route::delete("/cart", "destroy")->name("cart.destroy");
+        });
     });
 });
 
