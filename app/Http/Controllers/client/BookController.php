@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -20,8 +21,14 @@ class BookController extends Controller
     {
         $book = $book->load(["category", "quantity"]);
         $showAddToCart = !Cart::where("user_id", auth()->user()->uuid)
-                                    ->where("book_id", $book->uuid)
-                                    ->exists();
-        return view("pages.client.book-details", compact("book", "showAddToCart"));
+            ->where("book_id", $book->uuid)
+            ->exists() &&
+            !Order::where('book_id', $book->uuid)
+                ->where('user_id', auth()->user()->uuid)
+                ->exists();
+        $isRentable = !Order::where('book_id', $book->uuid)
+                ->where('user_id', auth()->user()->uuid)
+                ->exists();
+        return view("pages.client.book-details", compact("book", "showAddToCart", "isRentable"));
     }
 }

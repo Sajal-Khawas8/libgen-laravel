@@ -7,18 +7,17 @@
         <article class="space-y-4">
             <div class="flex justify-between">
                 <h2 class="font-semibold text-3xl">Summary</h2>
-                @if ($showAddToCart)
-                    <form action="{{ route("cart.store") }}" method="post">
+                @if ($isRentable)
+                    <form action="{{ $showAddToCart ? route("cart.store") : route("cart.destroy") }}" method="post">
                         @csrf
                         <input type="hidden" name="book" value="{{ $book->uuid }}">
+                        @if ($showAddToCart)
                         <x-shared.form.submit-button>Add to Cart</x-shared.form.submit-button>
-                    </form>
-                @else
-                    <form action="{{ route("cart.destroy") }}" method="post">
-                        @csrf
+                        @else
                         @method("DELETE")
-                        <input type="hidden" name="book" value="{{ $book->uuid }}">
-                        <x-shared.form.submit-button class="bg-red-500 hover:bg-red-600">Remove from Cart</x-shared.form.submit-button>
+                        <x-shared.form.submit-button class="bg-red-500 hover:bg-red-600">Remove from Cart
+                        </x-shared.form.submit-button>
+                        @endif
                     </form>
                 @endif
             </div>
@@ -39,36 +38,20 @@
                 </div>
             </dl>
         </article>
-        <article class="space-y-8">
-            <h2 class="font-semibold text-3xl">Payment</h2>
-            <form action="/formHandler" method="post" class="space-y-10 max-w-lg mx-auto">
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="col-span-2">
-                        <x-shared.form.input name="cardNumber" placeholder="Card Number ex.1234123412341234" minLength="16" maxLength="16" />
-                        <x-shared.form.error name="cardNumber" />
+        @if ($isRentable && $book->quantity->available)
+            <article class="space-y-8">
+                <h2 class="font-semibold text-3xl">Payment</h2>
+                <form action="{{ route("payment.book", $book->uuid) }}" method="post" class="space-y-10 max-w-lg mx-auto">
+                    @csrf
+                    <div class="flex items-center gap-4">
+                        <label for="returnDate" class="min-w-fit font-medium">Choose return date of book:</label>
+                        <x-shared.form.input name="returnDate" type="date" />
                     </div>
-                    <div class="flex-1">
-                        <x-shared.form.input name="returnDate" placeholder="Rent Period" />
-                        <x-shared.form.error name="returnDate" />
-                    </div>
-                </div>
-                <div>
-                    <x-shared.form.input name="cardName" placeholder="Name on Card" />
-                    <x-shared.form.error name="cardName" />
-                </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <x-shared.form.input name="expiryDate" placeholder="Expiration Date (MM/YY)"/>
-                        <x-shared.form.error name="expiryDate" />
-                    </div>
-                    <div>
-                        <x-shared.form.input type="password" name="cvv" placeholder="CVV" minLength="3" maxLength="3"/>
-                        <x-shared.form.error name="cvv" />
-                    </div>
-                </div>
-                <x-shared.form.submit-button> Get this Book </x-shared.form.submit-button>
-            </form>
-        </article>
+                    <x-shared.form.error name="returnDate" />
+                    <x-shared.form.submit-button> Get this Book </x-shared.form.submit-button>
+                </form>
+            </article>
+        @endif
     </div>
 </div>
 @endsection

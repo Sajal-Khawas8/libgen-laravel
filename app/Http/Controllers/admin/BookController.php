@@ -54,7 +54,7 @@ class BookController extends Controller
         $book = Book::create($bookData);
 
         Quantity::create([
-            'book' => $book->title,
+            'book_id' => $book->uuid,
             'copies' => $attributes['copies'],
             'available' => $attributes['copies']
         ]);
@@ -92,7 +92,7 @@ class BookController extends Controller
             ]);
         }
 
-        Quantity::where('book', $book->title)->update([
+        Quantity::where('book_id', $book->uuid)->update([
             'copies' => $bookData['copies'] ?? $book->quantity->copies,
             'available' => $bookData['copies'] ?? false ? $bookData['copies'] - $booksOnRent : $book->quantity->available
         ]);

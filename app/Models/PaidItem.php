@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaidItem extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['payment_id', 'book_id'];
     protected $with=['book'];
     public function book()
     {

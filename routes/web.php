@@ -9,6 +9,7 @@ use App\Http\Controllers\client\BookController as ClientBookController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\client\BookHistory;
 use App\Http\Controllers\client\CartController;
+use App\Http\Controllers\client\RentController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\LoginController;
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware("client")->group(function () {
     Route::controller(ClientBookController::class)->group(function () {
         Route::get('/', 'index');
-        Route::get('/bookDetails/{book:uuid}', 'show')->whereUuid('uuid');
+        Route::get('/bookDetails/{book:uuid}', 'show')->name('bookDetails');
     });
 
     Route::controller(ClientUserController::class)->group(function () {
@@ -47,7 +48,7 @@ Route::middleware("client")->group(function () {
         });
 
         Route::controller(BookHistory::class)->group(function (){
-            Route::get("/mybooks", "index");
+            Route::get("/mybooks", "index")->name("myBooks");
             Route::get("/returnBook/{book:uuid}", "returnBook")->whereUuid("uuid");
             Route::get("/rentHistory/{book:uuid}", "rentHistory")->whereUuid("uuid");
         });
@@ -56,6 +57,11 @@ Route::middleware("client")->group(function () {
             Route::get("/cart", "index")->name("cart.index");
             Route::post("/cart", "store")->name("cart.store");
             Route::delete("/cart", "destroy")->name("cart.destroy");
+        });
+
+        Route::controller(RentController::class)->group(function (){
+            Route::post("/bookPayment/{book:uuid}", "bookPayment")->name("payment.book");
+            Route::post("/acceptPayment", "acceptPayment")->name("acceptPayment");
         });
     });
 });

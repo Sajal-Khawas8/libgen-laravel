@@ -50,7 +50,7 @@ class Book extends Model
 
     public function quantity(): BelongsTo
     {
-        return $this->belongsTo(Quantity::class, "title", "book");
+        return $this->belongsTo(Quantity::class, "uuid", "book_id");
     }
 
     public function orders(){

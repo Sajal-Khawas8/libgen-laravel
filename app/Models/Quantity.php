@@ -14,6 +14,6 @@ class Quantity extends Model
 
     public function book()
     {
-        return $this->hasOne(Book::class, 'title', 'book');
+        return $this->hasOne(Book::class, 'uuid', 'book_id');
     }
 }

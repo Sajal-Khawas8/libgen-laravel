@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Payment extends Model
 {
     use HasFactory;
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $with = ['paymentType', 'user', 'paidItem'];
+    protected $casts = [
+        'amount' => 'decimal:2',
+    ];
     public function paymentType()
     {
-        return $this->belongsTo(PaymentType::class, "type");
+        return $this->belongsTo(PaymentType::class, "payment_type");
     }
     public function user()
     {
